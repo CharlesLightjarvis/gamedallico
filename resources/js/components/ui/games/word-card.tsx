@@ -37,6 +37,12 @@ type WordCardProps = {
     questionLabel: string;
     history: HistoryEvent[];
     nextWordCountdown: number;
+    word: string;
+    correction: {
+        translation: string;
+        strength: "fort" | "faible";
+        conjugation: string;
+    } | null;
 };
 
 function HistoryLine({ event }: { event: HistoryEvent }) {
@@ -70,6 +76,8 @@ export function WordCard({
     questionLabel,
     history,
     nextWordCountdown,
+    word,
+    correction,
 }: WordCardProps) {
     const accent = activePlayer?.color ?? "#55a2ff";
     const currentTime = activeId !== null ? playerTime : roundTime;
@@ -77,11 +85,11 @@ export function WordCard({
     const isViewerAnswering = activeId === viewerPlayerId;
     const activeQuestion =
         stage === "translation"
-            ? "Traduction du mot bestellen"
+            ? `Traduction du mot ${word}`
             : stage === "grammar"
               ? "Est-ce que le verbe est fort ou faible ?"
               : "Conjugaison à la troisième personne du singulier au présent";
-    const centralContent = isAnswering ? answer || "__________" : "bestellen";
+    const centralContent = isAnswering ? answer || "__________" : word;
     const messageColor =
         message.includes("correcte") ||
         message.includes("Faible") ||
@@ -136,9 +144,9 @@ export function WordCard({
                 <h1 className="mt-1.5 break-words text-[clamp(1.85rem,6.5vw,3.8rem)] font-black leading-[0.98] tracking-[-0.06em] text-slate-50 [text-shadow:0_0_22px_rgba(125,211,252,.22),0_8px_28px_rgba(0,0,0,.45)] lg:mt-2">
                     {stage === "done" ? (
                         <>
-                            bestellen
+                            {word}
                             <span className="mx-1.5 text-white/35">=</span>
-                            commander
+                            {correction?.translation ?? "—"}
                         </>
                     ) : isAnswering && stage === "grammar" ? (
                         <span className="mx-auto grid max-w-[420px] grid-cols-2 gap-2 text-sm tracking-normal lg:gap-3 lg:text-lg">

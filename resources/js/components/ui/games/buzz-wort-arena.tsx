@@ -584,6 +584,7 @@ export default function BuzzWortArena({ viewerPlayerId = 1 }: BuzzWortArenaProps
         <PlayerStation
             key={player.id}
             player={player}
+            word="bestellen"
             position={position}
             activeId={activeId}
             stage={stage}
@@ -644,6 +645,8 @@ export default function BuzzWortArena({ viewerPlayerId = 1 }: BuzzWortArenaProps
                         questionLabel={questionLabel}
                         history={history}
                         nextWordCountdown={nextWordCountdown}
+                        word="bestellen"
+                        correction={null}
                     />
                 </div>
             </div>

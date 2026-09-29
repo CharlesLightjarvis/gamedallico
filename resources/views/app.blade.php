@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark']) @style(['background-color:#030525;color-scheme:dark;position:fixed;inset:0;overflow:hidden;overscroll-behavior:none;touch-action:none' => request()->routeIs('home')])>
     <head>
         <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="{{ request()->routeIs('home') ? 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content' : 'width=device-width, initial-scale=1' }}">
         <meta name="theme-color" content="{{ request()->routeIs('home') ? '#000000' : '#ffffff' }}">
         @if (request()->routeIs('home'))

@@ -2,19 +2,23 @@ import { useState } from "react";
 
 type BuzzerProps = {
     locked?: boolean;
+    disabled?: boolean;
     onBuzz?: () => void;
     className?: string;
+    label?: string;
 };
 
 export function Buzzer({
     locked = false,
+    disabled = locked,
     onBuzz,
     className = "",
+    label,
 }: BuzzerProps) {
     const [pressed, setPressed] = useState(false);
 
     const pressBuzzer = (event: React.PointerEvent<HTMLButtonElement>) => {
-        if (locked || pressed) {
+        if (disabled || pressed) {
             return;
         }
 
@@ -43,7 +47,8 @@ export function Buzzer({
         <button
             type="button"
             aria-label="Buzz"
-            disabled={locked}
+            aria-disabled={disabled}
+            tabIndex={disabled ? -1 : 0}
             onPointerDown={pressBuzzer}
             onPointerUp={releaseBuzzer}
             onPointerCancel={releaseBuzzer}
@@ -164,7 +169,7 @@ export function Buzzer({
                         [text-shadow:0_3px_3px_rgba(0,0,0,0.45)]
                     "
                 >
-                    {locked ? "LOCKED" : "BUZZ"}
+                    {label ?? (locked ? "LOCKED" : "BUZZ")}
                 </span>
             </span>
         </button>
