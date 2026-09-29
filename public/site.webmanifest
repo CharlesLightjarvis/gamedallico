@@ -1,0 +1,25 @@
+{
+    "name": "Gamedal",
+    "short_name": "Gamedal",
+    "description": "Jeux multijoueurs éducatifs",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#030525",
+    "theme_color": "#030525",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

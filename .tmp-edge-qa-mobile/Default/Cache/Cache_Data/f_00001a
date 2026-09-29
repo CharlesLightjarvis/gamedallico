@@ -1,0 +1,409 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/resources/js/components/ui/breadcrumb.tsx");const _c = __vite__cjsImport0_react_compilerRuntime["c"];const React = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport3_react, 1);const _jsxDEV = __vite__cjsImport5_react_jsxDevRuntime["jsxDEV"];import __vite__cjsImport0_react_compilerRuntime from "/node_modules/.vite/deps/react_compiler-runtime.js?v=29b204c1";
+import { Slot } from "/node_modules/.vite/deps/@radix-ui_react-slot.js?v=15daa9d9";
+import { ChevronRight, MoreHorizontal } from "/node_modules/.vite/deps/lucide-react.js?v=ac5135c8";
+import __vite__cjsImport3_react from "/node_modules/.vite/deps/react.js?v=29b204c1";
+import { cn } from "/resources/js/lib/utils.ts";
+var _jsxFileName = "D:/Laravel_Projects/gamedal/resources/js/components/ui/breadcrumb.tsx";
+import __vite__cjsImport5_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=29b204c1";
+function Breadcrumb(t0) {
+	const $ = _c(5);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 5; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let props;
+	if ($[1] !== t0) {
+		({...props} = t0);
+		$[1] = t0;
+		$[2] = props;
+	} else {
+		props = $[2];
+	}
+	let t1;
+	if ($[3] !== props) {
+		t1 = /* @__PURE__ */ _jsxDEV("nav", {
+			"aria-label": "breadcrumb",
+			"data-slot": "breadcrumb",
+			...props
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 26,
+			columnNumber: 10
+		}, this);
+		$[3] = props;
+		$[4] = t1;
+	} else {
+		t1 = $[4];
+	}
+	return t1;
+}
+_c2 = Breadcrumb;
+function BreadcrumbList(t0) {
+	const $ = _c(9);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 9; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let className;
+	let props;
+	if ($[1] !== t0) {
+		({className, ...props} = t0);
+		$[1] = t0;
+		$[2] = className;
+		$[3] = props;
+	} else {
+		className = $[2];
+		props = $[3];
+	}
+	let t1;
+	if ($[4] !== className) {
+		t1 = cn("text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5", className);
+		$[4] = className;
+		$[5] = t1;
+	} else {
+		t1 = $[5];
+	}
+	let t2;
+	if ($[6] !== props || $[7] !== t1) {
+		t2 = /* @__PURE__ */ _jsxDEV("ol", {
+			"data-slot": "breadcrumb-list",
+			className: t1,
+			...props
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 66,
+			columnNumber: 10
+		}, this);
+		$[6] = props;
+		$[7] = t1;
+		$[8] = t2;
+	} else {
+		t2 = $[8];
+	}
+	return t2;
+}
+_c3 = BreadcrumbList;
+function BreadcrumbItem(t0) {
+	const $ = _c(9);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 9; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let className;
+	let props;
+	if ($[1] !== t0) {
+		({className, ...props} = t0);
+		$[1] = t0;
+		$[2] = className;
+		$[3] = props;
+	} else {
+		className = $[2];
+		props = $[3];
+	}
+	let t1;
+	if ($[4] !== className) {
+		t1 = cn("inline-flex items-center gap-1.5", className);
+		$[4] = className;
+		$[5] = t1;
+	} else {
+		t1 = $[5];
+	}
+	let t2;
+	if ($[6] !== props || $[7] !== t1) {
+		t2 = /* @__PURE__ */ _jsxDEV("li", {
+			"data-slot": "breadcrumb-item",
+			className: t1,
+			...props
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 107,
+			columnNumber: 10
+		}, this);
+		$[6] = props;
+		$[7] = t1;
+		$[8] = t2;
+	} else {
+		t2 = $[8];
+	}
+	return t2;
+}
+_c4 = BreadcrumbItem;
+function BreadcrumbLink(t0) {
+	const $ = _c(11);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 11; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let asChild;
+	let className;
+	let props;
+	if ($[1] !== t0) {
+		({asChild, className, ...props} = t0);
+		$[1] = t0;
+		$[2] = asChild;
+		$[3] = className;
+		$[4] = props;
+	} else {
+		asChild = $[2];
+		className = $[3];
+		props = $[4];
+	}
+	const Comp = asChild ? Slot : "a";
+	let t1;
+	if ($[5] !== className) {
+		t1 = cn("hover:text-foreground transition-colors", className);
+		$[5] = className;
+		$[6] = t1;
+	} else {
+		t1 = $[6];
+	}
+	let t2;
+	if ($[7] !== Comp || $[8] !== props || $[9] !== t1) {
+		t2 = /* @__PURE__ */ _jsxDEV(Comp, {
+			"data-slot": "breadcrumb-link",
+			className: t1,
+			...props
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 153,
+			columnNumber: 10
+		}, this);
+		$[7] = Comp;
+		$[8] = props;
+		$[9] = t1;
+		$[10] = t2;
+	} else {
+		t2 = $[10];
+	}
+	return t2;
+}
+_c5 = BreadcrumbLink;
+function BreadcrumbPage(t0) {
+	const $ = _c(9);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 9; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let className;
+	let props;
+	if ($[1] !== t0) {
+		({className, ...props} = t0);
+		$[1] = t0;
+		$[2] = className;
+		$[3] = props;
+	} else {
+		className = $[2];
+		props = $[3];
+	}
+	let t1;
+	if ($[4] !== className) {
+		t1 = cn("text-foreground font-normal", className);
+		$[4] = className;
+		$[5] = t1;
+	} else {
+		t1 = $[5];
+	}
+	let t2;
+	if ($[6] !== props || $[7] !== t1) {
+		t2 = /* @__PURE__ */ _jsxDEV("span", {
+			"data-slot": "breadcrumb-page",
+			role: "link",
+			"aria-disabled": "true",
+			"aria-current": "page",
+			className: t1,
+			...props
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 195,
+			columnNumber: 10
+		}, this);
+		$[6] = props;
+		$[7] = t1;
+		$[8] = t2;
+	} else {
+		t2 = $[8];
+	}
+	return t2;
+}
+_c6 = BreadcrumbPage;
+function BreadcrumbSeparator(t0) {
+	const $ = _c(13);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 13; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let children;
+	let className;
+	let props;
+	if ($[1] !== t0) {
+		({children, className, ...props} = t0);
+		$[1] = t0;
+		$[2] = children;
+		$[3] = className;
+		$[4] = props;
+	} else {
+		children = $[2];
+		className = $[3];
+		props = $[4];
+	}
+	let t1;
+	if ($[5] !== className) {
+		t1 = cn("[&>svg]:size-3.5", className);
+		$[5] = className;
+		$[6] = t1;
+	} else {
+		t1 = $[6];
+	}
+	let t2;
+	if ($[7] !== children) {
+		t2 = children ?? /* @__PURE__ */ _jsxDEV(ChevronRight, {}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 240,
+			columnNumber: 22
+		}, this);
+		$[7] = children;
+		$[8] = t2;
+	} else {
+		t2 = $[8];
+	}
+	let t3;
+	if ($[9] !== props || $[10] !== t1 || $[11] !== t2) {
+		t3 = /* @__PURE__ */ _jsxDEV("li", {
+			"data-slot": "breadcrumb-separator",
+			role: "presentation",
+			"aria-hidden": "true",
+			className: t1,
+			...props,
+			children: t2
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 248,
+			columnNumber: 10
+		}, this);
+		$[9] = props;
+		$[10] = t1;
+		$[11] = t2;
+		$[12] = t3;
+	} else {
+		t3 = $[12];
+	}
+	return t3;
+}
+_c7 = BreadcrumbSeparator;
+function BreadcrumbEllipsis(t0) {
+	const $ = _c(11);
+	if ($[0] !== "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075") {
+		for (let $i = 0; $i < 11; $i += 1) {
+			$[$i] = Symbol.for("react.memo_cache_sentinel");
+		}
+		$[0] = "462799bb05b54bd12ce17b7e07c68e6bae110bc619e2b2b05477ab0ebcd1b075";
+	}
+	let className;
+	let props;
+	if ($[1] !== t0) {
+		({className, ...props} = t0);
+		$[1] = t0;
+		$[2] = className;
+		$[3] = props;
+	} else {
+		className = $[2];
+		props = $[3];
+	}
+	let t1;
+	if ($[4] !== className) {
+		t1 = cn("flex size-9 items-center justify-center", className);
+		$[4] = className;
+		$[5] = t1;
+	} else {
+		t1 = $[5];
+	}
+	let t2;
+	let t3;
+	if ($[6] === Symbol.for("react.memo_cache_sentinel")) {
+		t2 = /* @__PURE__ */ _jsxDEV(MoreHorizontal, { className: "size-4" }, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 291,
+			columnNumber: 10
+		}, this);
+		t3 = /* @__PURE__ */ _jsxDEV("span", {
+			className: "sr-only",
+			children: "More"
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 292,
+			columnNumber: 10
+		}, this);
+		$[6] = t2;
+		$[7] = t3;
+	} else {
+		t2 = $[6];
+		t3 = $[7];
+	}
+	let t4;
+	if ($[8] !== props || $[9] !== t1) {
+		t4 = /* @__PURE__ */ _jsxDEV("span", {
+			"data-slot": "breadcrumb-ellipsis",
+			role: "presentation",
+			"aria-hidden": "true",
+			className: t1,
+			...props,
+			children: [t2, t3]
+		}, void 0, true, {
+			fileName: _jsxFileName,
+			lineNumber: 301,
+			columnNumber: 10
+		}, this);
+		$[8] = props;
+		$[9] = t1;
+		$[10] = t4;
+	} else {
+		t4 = $[10];
+	}
+	return t4;
+}
+_c8 = BreadcrumbEllipsis;
+export { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis };
+var _c2, _c3, _c4, _c5, _c6, _c7, _c8;
+$RefreshReg$(_c2, "Breadcrumb");
+$RefreshReg$(_c3, "BreadcrumbList");
+$RefreshReg$(_c4, "BreadcrumbItem");
+$RefreshReg$(_c5, "BreadcrumbLink");
+$RefreshReg$(_c6, "BreadcrumbPage");
+$RefreshReg$(_c7, "BreadcrumbSeparator");
+$RefreshReg$(_c8, "BreadcrumbEllipsis");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/resources/js/components/ui/breadcrumb.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("D:/Laravel_Projects/gamedal/resources/js/components/ui/breadcrumb.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("D:/Laravel_Projects/gamedal/resources/js/components/ui/breadcrumb.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "D:/Laravel_Projects/gamedal/resources/js/components/ui/breadcrumb.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,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QUE7Q0FBQTtFQUFBO0NBQUE7Q0FBQTtDQUFBO0NBQUE7RUFHbkUsNkJBQUMsZ0JBQUQsRUFBMEIsb0JBQVE7Ozs7O0VBQ2xDO0dBQWdCO2FBQVU7RUFBVzs7Ozs7RUFBQTtFQUFBO0NBQUE7RUFBQTtFQUFBO0NBQUE7Q0FBQTtDQUFBO0VBUnZDO0dBQ1k7R0FDTDtHQUNPO0dBQ0Q7R0FBd0QsR0FDL0Q7YUFMTixDQU9FLElBQ0EsRUFDSzs7Ozs7O0VBQUE7RUFBQTtFQUFBO0NBQUE7RUFBQTtDQUFBO0NBQUEsT0FUUDtBQVNPOztBQUlYLFNBQ0UsWUFDQSxnQkFDQSxnQkFDQSxnQkFDQSxnQkFDQSxxQkFDQSIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiYnJlYWRjcnVtYi50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgU2xvdCB9IGZyb20gXCJAcmFkaXgtdWkvcmVhY3Qtc2xvdFwiXG5pbXBvcnQgeyBDaGV2cm9uUmlnaHQsIE1vcmVIb3Jpem9udGFsIH0gZnJvbSBcImx1Y2lkZS1yZWFjdFwiXG5pbXBvcnQgKiBhcyBSZWFjdCBmcm9tIFwicmVhY3RcIlxuXG5pbXBvcnQgeyBjbiB9IGZyb20gXCJAL2xpYi91dGlsc1wiXG5cbmZ1bmN0aW9uIEJyZWFkY3J1bWIoeyAuLi5wcm9wcyB9OiBSZWFjdC5Db21wb25lbnRQcm9wczxcIm5hdlwiPikge1xuICByZXR1cm4gPG5hdiBhcmlhLWxhYmVsPVwiYnJlYWRjcnVtYlwiIGRhdGEtc2xvdD1cImJyZWFkY3J1bWJcIiB7Li4ucHJvcHN9IC8+XG59XG5cbmZ1bmN0aW9uIEJyZWFkY3J1bWJMaXN0KHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9OiBSZWFjdC5Db21wb25lbnRQcm9wczxcIm9sXCI+KSB7XG4gIHJldHVybiAoXG4gICAgPG9sXG4gICAgICBkYXRhLXNsb3Q9XCJicmVhZGNydW1iLWxpc3RcIlxuICAgICAgY2xhc3NOYW1lPXtjbihcbiAgICAgICAgXCJ0ZXh0LW11dGVkLWZvcmVncm91bmQgZmxleCBmbGV4LXdyYXAgaXRlbXMtY2VudGVyIGdhcC0xLjUgdGV4dC1zbSBicmVhay13b3JkcyBzbTpnYXAtMi41XCIsXG4gICAgICAgIGNsYXNzTmFtZVxuICAgICAgKX1cbiAgICAgIHsuLi5wcm9wc31cbiAgICAvPlxuICApXG59XG5cbmZ1bmN0aW9uIEJyZWFkY3J1bWJJdGVtKHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9OiBSZWFjdC5Db21wb25lbnRQcm9wczxcImxpXCI+KSB7XG4gIHJldHVybiAoXG4gICAgPGxpXG4gICAgICBkYXRhLXNsb3Q9XCJicmVhZGNydW1iLWl0ZW1cIlxuICAgICAgY2xhc3NOYW1lPXtjbihcImlubGluZS1mbGV4IGl0ZW1zLWNlbnRlciBnYXAtMS41XCIsIGNsYXNzTmFtZSl9XG4gICAgICB7Li4ucHJvcHN9XG4gICAgLz5cbiAgKVxufVxuXG5mdW5jdGlvbiBCcmVhZGNydW1iTGluayh7XG4gIGFzQ2hpbGQsXG4gIGNsYXNzTmFtZSxcbiAgLi4ucHJvcHNcbn06IFJlYWN0LkNvbXBvbmVudFByb3BzPFwiYVwiPiAmIHtcbiAgYXNDaGlsZD86IGJvb2xlYW5cbn0pIHtcbiAgY29uc3QgQ29tcCA9IGFzQ2hpbGQgPyBTbG90IDogXCJhXCJcblxuICByZXR1cm4gKFxuICAgIDxDb21wXG4gICAgICBkYXRhLXNsb3Q9XCJicmVhZGNydW1iLWxpbmtcIlxuICAgICAgY2xhc3NOYW1lPXtjbihcImhvdmVyOnRleHQtZm9yZWdyb3VuZCB0cmFuc2l0aW9uLWNvbG9yc1wiLCBjbGFzc05hbWUpfVxuICAgICAgey4uLnByb3BzfVxuICAgIC8+XG4gIClcbn1cblxuZnVuY3Rpb24gQnJlYWRjcnVtYlBhZ2UoeyBjbGFzc05hbWUsIC4uLnByb3BzIH06IFJlYWN0LkNvbXBvbmVudFByb3BzPFwic3BhblwiPikge1xuICByZXR1cm4gKFxuICAgIDxzcGFuXG4gICAgICBkYXRhLXNsb3Q9XCJicmVhZGNydW1iLXBhZ2VcIlxuICAgICAgcm9sZT1cImxpbmtcIlxuICAgICAgYXJpYS1kaXNhYmxlZD1cInRydWVcIlxuICAgICAgYXJpYS1jdXJyZW50PVwicGFnZVwiXG4gICAgICBjbGFzc05hbWU9e2NuKFwidGV4dC1mb3JlZ3JvdW5kIGZvbnQtbm9ybWFsXCIsIGNsYXNzTmFtZSl9XG4gICAgICB7Li4ucHJvcHN9XG4gICAgLz5cbiAgKVxufVxuXG5mdW5jdGlvbiBCcmVhZGNydW1iU2VwYXJhdG9yKHtcbiAgY2hpbGRyZW4sXG4gIGNsYXNzTmFtZSxcbiAgLi4ucHJvcHNcbn06IFJlYWN0LkNvbXBvbmVudFByb3BzPFwibGlcIj4pIHtcbiAgcmV0dXJuIChcbiAgICA8bGlcbiAgICAgIGRhdGEtc2xvdD1cImJyZWFkY3J1bWItc2VwYXJhdG9yXCJcbiAgICAgIHJvbGU9XCJwcmVzZW50YXRpb25cIlxuICAgICAgYXJpYS1oaWRkZW49XCJ0cnVlXCJcbiAgICAgIGNsYXNzTmFtZT17Y24oXCJbJj5zdmddOnNpemUtMy41XCIsIGNsYXNzTmFtZSl9XG4gICAgICB7Li4ucHJvcHN9XG4gICAgPlxuICAgICAge2NoaWxkcmVuID8/IDxDaGV2cm9uUmlnaHQgLz59XG4gICAgPC9saT5cbiAgKVxufVxuXG5mdW5jdGlvbiBCcmVhZGNydW1iRWxsaXBzaXMoe1xuICBjbGFzc05hbWUsXG4gIC4uLnByb3BzXG59OiBSZWFjdC5Db21wb25lbnRQcm9wczxcInNwYW5cIj4pIHtcbiAgcmV0dXJuIChcbiAgICA8c3BhblxuICAgICAgZGF0YS1zbG90PVwiYnJlYWRjcnVtYi1lbGxpcHNpc1wiXG4gICAgICByb2xlPVwicHJlc2VudGF0aW9uXCJcbiAgICAgIGFyaWEtaGlkZGVuPVwidHJ1ZVwiXG4gICAgICBjbGFzc05hbWU9e2NuKFwiZmxleCBzaXplLTkgaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyXCIsIGNsYXNzTmFtZSl9XG4gICAgICB7Li4ucHJvcHN9XG4gICAgPlxuICAgICAgPE1vcmVIb3Jpem9udGFsIGNsYXNzTmFtZT1cInNpemUtNFwiIC8+XG4gICAgICA8c3BhbiBjbGFzc05hbWU9XCJzci1vbmx5XCI+TW9yZTwvc3Bhbj5cbiAgICA8L3NwYW4+XG4gIClcbn1cblxuZXhwb3J0IHtcbiAgQnJlYWRjcnVtYixcbiAgQnJlYWRjcnVtYkxpc3QsXG4gIEJyZWFkY3J1bWJJdGVtLFxuICBCcmVhZGNydW1iTGluayxcbiAgQnJlYWRjcnVtYlBhZ2UsXG4gIEJyZWFkY3J1bWJTZXBhcmF0b3IsXG4gIEJyZWFkY3J1bWJFbGxpcHNpcyxcbn1cbiJdLCJmaWxlIjoiRDovTGFyYXZlbF9Qcm9qZWN0cy9nYW1lZGFsL3Jlc291cmNlcy9qcy9jb21wb25lbnRzL3VpL2JyZWFkY3J1bWIudHN4In0=
