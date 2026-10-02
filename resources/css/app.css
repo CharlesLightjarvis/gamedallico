@@ -179,3 +179,643 @@ body:has([data-buzz-wort-arena]) #app {
 [data-buzz-wort-arena] :is(button, input) {
     touch-action: none;
 }
+
+/* Buzz Wort's center is a server-timed stage, not a card container. */
+.game-center-stage {
+    --game-scene-lag: 0ms;
+    position: relative;
+    display: grid;
+    width: min(92vw, 900px);
+    height: clamp(280px, 48vh, 520px);
+    place-items: center;
+    isolation: isolate;
+}
+
+.game-center-stage__card {
+    animation: buzz-card-arrive 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--game-scene-lag);
+}
+
+.game-reveal {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow: visible;
+    color: white;
+    text-align: center;
+}
+
+.game-reveal__content {
+    position: relative;
+    z-index: 2;
+    width: min(88vw, 760px);
+    padding: 28px 18px;
+    animation: buzz-reveal-impact 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--game-scene-lag);
+}
+
+.game-reveal__title {
+    color: #fff8eb;
+    font-size: clamp(2.6rem, 9.5vw, 6rem);
+    font-weight: 950;
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
+}
+
+.game-reveal--danger .game-reveal__title {
+    text-shadow:
+        0 8px 30px rgb(42 5 13 / 0.72),
+        0 0 34px rgb(251 113 133 / 0.5);
+}
+
+.game-reveal--victory .game-reveal__title {
+    color: #ecfff7;
+    text-shadow:
+        0 8px 30px rgb(2 44 34 / 0.72),
+        0 0 34px rgb(52 211 153 / 0.45);
+}
+
+.game-reveal__divider {
+    width: min(38vw, 220px);
+    height: 2px;
+    margin: 22px auto 18px;
+    background: #fb7185;
+    box-shadow: 0 4px 16px rgb(251 113 133 / 0.7);
+    transform-origin: center;
+    animation: buzz-divider-open 560ms 260ms cubic-bezier(0.16, 1, 0.3, 1)
+        both;
+    animation-delay: calc(var(--game-scene-lag) + 260ms);
+}
+
+.game-reveal__answer-label,
+.game-reveal__intro-label {
+    color: rgb(255 255 255 / 0.68);
+    font-size: clamp(0.62rem, 1.8vw, 0.78rem);
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.game-reveal__answer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.18em;
+    margin-top: 7px;
+    font-size: clamp(1.75rem, 6vw, 3.9rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-shadow: 0 8px 24px rgb(0 0 0 / 0.48);
+}
+
+.game-reveal__answer strong {
+    color: #fde68a;
+}
+
+.game-reveal--victory .game-reveal__answer strong {
+    color: #6ee7b7;
+}
+
+.game-reveal__equals {
+    margin-inline: 0.08em;
+    color: rgb(255 255 255 / 0.34);
+    font-weight: 600;
+}
+
+.game-correction__grammar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    margin-top: 17px;
+}
+
+.game-correction__conjugation {
+    color: #fff8eb;
+    font-size: clamp(1.55rem, 5vw, 3.15rem);
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-shadow:
+        0 8px 26px rgb(0 0 0 / 0.48),
+        0 0 24px rgb(var(--scene-color) / 0.42);
+}
+
+.game-correction__strength {
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 999px;
+    background: rgb(4 8 36 / 0.56);
+    padding: 6px 10px;
+    color: rgb(255 255 255 / 0.74);
+    font-size: clamp(0.58rem, 1.8vw, 0.72rem);
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.game-reveal__detail,
+.game-reveal__message,
+.game-reveal__ready {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 12px;
+    color: rgb(255 248 235 / 0.72);
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    font-weight: 750;
+}
+
+.game-reveal__message {
+    margin: 13px auto 6px;
+    color: #a7f3d0;
+}
+
+.game-reveal__word {
+    margin-top: 9px;
+    color: #f8fbff;
+    font-size: clamp(3rem, 11vw, 6rem);
+    font-weight: 950;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+    text-shadow:
+        0 10px 34px rgb(2 8 34 / 0.7),
+        0 0 38px rgb(96 165 250 / 0.52);
+}
+
+.game-reveal__ready-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: min(58vw, 340px);
+    margin: 24px auto 0;
+}
+
+.game-reveal__ready-line span {
+    width: 45%;
+    height: 1px;
+    background: rgb(125 211 252 / 0.52);
+}
+
+.game-reveal__ready-line i {
+    width: 7px;
+    height: 7px;
+    border: 2px solid #7dd3fc;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 12px rgb(56 189 248 / 0.65);
+}
+
+.game-reveal__ready {
+    margin-top: 10px;
+    color: #bae6fd;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.game-stage-fx,
+.game-stage-fx > span {
+    pointer-events: none;
+    position: absolute;
+}
+
+.game-stage-fx {
+    --scene-color: 96 165 250;
+    inset: -18%;
+    z-index: 0;
+}
+
+.game-stage-fx[data-tone="danger"] {
+    --scene-color: 251 113 133;
+}
+
+.game-stage-fx[data-tone="victory"] {
+    --scene-color: 52 211 153;
+}
+
+.game-stage-fx__wash {
+    inset: 2%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgb(var(--scene-color) / 0.3) 0%,
+        rgb(var(--scene-color) / 0.1) 34%,
+        transparent 69%
+    );
+    animation: buzz-wash-breathe 2.2s ease-in-out both;
+    animation-delay: var(--game-scene-lag);
+}
+
+.game-stage-fx__flash {
+    inset: 8%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgb(255 255 255 / 0.78) 0%,
+        rgb(var(--scene-color) / 0.34) 18%,
+        transparent 58%
+    );
+    mix-blend-mode: screen;
+    animation: buzz-impact-flash 680ms ease-out both;
+    animation-delay: var(--game-scene-lag);
+}
+
+.game-stage-fx__ring {
+    top: 50%;
+    left: 50%;
+    width: min(58vw, 430px);
+    aspect-ratio: 1;
+    border: 2px solid rgb(var(--scene-color) / 0.56);
+    border-radius: 50%;
+    box-shadow:
+        0 10px 34px rgb(0 0 0 / 0.24),
+        inset 0 0 22px rgb(var(--scene-color) / 0.18);
+    animation: buzz-shockwave 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--game-scene-lag);
+}
+
+.game-stage-fx__ring--two {
+    animation-delay: calc(var(--game-scene-lag) + 180ms);
+}
+
+.game-stage-fx__sweep {
+    top: 8%;
+    bottom: 8%;
+    left: 50%;
+    width: 24%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgb(var(--scene-color) / 0.18),
+        transparent
+    );
+    filter: blur(10px);
+    transform: translateX(-250%) skewX(-12deg);
+    animation: buzz-light-sweep 1.1s 120ms ease-out both;
+    animation-delay: calc(var(--game-scene-lag) + 120ms);
+}
+
+.game-stage-fx__particle {
+    --particle-angle: 0deg;
+    --particle-distance: 140px;
+    --particle-delay: 0ms;
+    --particle-size: 4px;
+    top: 50%;
+    left: 50%;
+    width: var(--particle-size);
+    height: calc(var(--particle-size) * 2.8);
+    border-radius: 999px;
+    background: rgb(var(--scene-color));
+    box-shadow: 0 5px 12px rgb(var(--scene-color) / 0.7);
+    opacity: 0;
+    animation: buzz-particle-burst 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--game-scene-lag) + var(--particle-delay));
+}
+
+.game-action-feedback {
+    --action-color: #60a5fa;
+    --action-lag: 0ms;
+    pointer-events: none;
+    position: absolute;
+    inset: -8%;
+    z-index: 8;
+    display: grid;
+    place-items: center;
+    overflow: visible;
+}
+
+.game-action-feedback__pulse,
+.game-action-feedback__ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(45vw, 320px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.game-action-feedback__pulse {
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--action-color) 42%, transparent) 0%,
+        color-mix(in srgb, var(--action-color) 12%, transparent) 36%,
+        transparent 68%
+    );
+    animation: buzz-action-pulse 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--action-lag);
+}
+
+.game-action-feedback__ring {
+    border: 2px solid var(--action-color);
+    box-shadow:
+        0 8px 28px rgb(0 0 0 / 0.32),
+        inset 0 0 22px color-mix(in srgb, var(--action-color) 32%, transparent);
+    animation: buzz-action-ring 980ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--action-lag);
+}
+
+.game-action-feedback__ring--late {
+    animation-delay: calc(var(--action-lag) + 120ms);
+}
+
+.game-action-feedback__copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-transform: uppercase;
+    animation: buzz-action-copy 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--action-lag);
+}
+
+.game-action-feedback__copy strong {
+    color: var(--action-color);
+    font-size: clamp(2.8rem, 9vw, 5.4rem);
+    font-weight: 950;
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    text-shadow:
+        0 10px 30px rgb(0 0 0 / 0.72),
+        0 0 28px color-mix(in srgb, var(--action-color) 62%, transparent);
+}
+
+.game-action-feedback__copy span {
+    margin-top: 9px;
+    color: rgb(255 255 255 / 0.86);
+    font-size: clamp(0.62rem, 1.8vw, 0.78rem);
+    font-weight: 900;
+    letter-spacing: 0.12em;
+}
+
+.game-action-feedback__streaks,
+.game-action-feedback__streaks i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.game-action-feedback__streaks i {
+    --streak: 0;
+    width: 3px;
+    height: 54px;
+    border-radius: 999px;
+    background: var(--action-color);
+    box-shadow: 0 5px 14px color-mix(in srgb, var(--action-color) 68%, transparent);
+    transform-origin: 50% 0;
+    animation: buzz-action-streak 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--action-lag) + var(--streak) * 22ms);
+    rotate: calc(var(--streak) * 45deg);
+}
+
+.game-action-feedback--prominent .game-action-feedback__pulse {
+    animation-duration: 820ms;
+}
+
+.game-action-feedback--prominent .game-action-feedback__ring {
+    animation-duration: 920ms;
+}
+
+.game-action-feedback--prominent .game-action-feedback__copy {
+    animation-name: buzz-action-copy-hold;
+    animation-duration: 1s;
+}
+
+.game-action-feedback--prominent .game-action-feedback__streaks i {
+    animation-duration: 780ms;
+}
+
+@keyframes buzz-card-arrive {
+    from {
+        opacity: 0.25;
+        filter: blur(10px);
+        transform: scale(1.16);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+@keyframes buzz-reveal-impact {
+    from {
+        opacity: 0;
+        filter: blur(16px);
+        transform: scale(0.72);
+    }
+    55% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1.035);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+@keyframes buzz-divider-open {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+@keyframes buzz-impact-flash {
+    from {
+        opacity: 1;
+        transform: scale(0.25);
+    }
+    to {
+        opacity: 0;
+        transform: scale(1.45);
+    }
+}
+
+@keyframes buzz-shockwave {
+    from {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.18);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.62);
+    }
+}
+
+@keyframes buzz-particle-burst {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--particle-angle))
+            translateY(0) scaleY(0.35);
+    }
+    18% {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--particle-angle))
+            translateY(calc(var(--particle-distance) * -1)) scaleY(1);
+    }
+}
+
+@keyframes buzz-wash-breathe {
+    from {
+        opacity: 0.25;
+        transform: scale(0.72);
+    }
+    45% {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+    to {
+        opacity: 0.72;
+        transform: scale(1);
+    }
+}
+
+@keyframes buzz-light-sweep {
+    from {
+        opacity: 0;
+        transform: translateX(-250%) skewX(-12deg);
+    }
+    25% {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateX(150%) skewX(-12deg);
+    }
+}
+
+@keyframes buzz-action-pulse {
+    from {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(0.2);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.65);
+    }
+}
+
+@keyframes buzz-action-ring {
+    from {
+        opacity: 0.95;
+        transform: translate(-50%, -50%) scale(0.18);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.42);
+    }
+}
+
+@keyframes buzz-action-copy {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: scale(0.56);
+    }
+    28% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1.04);
+    }
+    68% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        filter: blur(3px);
+        transform: scale(1.08);
+    }
+}
+
+@keyframes buzz-action-copy-hold {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: scale(0.56);
+    }
+    28% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1.04);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+@keyframes buzz-action-streak {
+    from {
+        opacity: 1;
+        transform: translate(-50%, 12px) scaleY(0.2);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -190px) scaleY(1);
+    }
+}
+
+@media (max-height: 680px) {
+    .game-center-stage {
+        height: 300px;
+    }
+
+    .game-reveal__content {
+        padding-block: 14px;
+    }
+
+    .game-reveal__divider {
+        margin-block: 14px 11px;
+    }
+
+    .game-reveal__detail,
+    .game-reveal__message,
+    .game-reveal__ready {
+        margin-top: 7px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .game-center-stage__card,
+    .game-reveal__content,
+    .game-reveal__divider,
+    .game-stage-fx__wash {
+        animation-duration: 1ms;
+        animation-delay: 0ms;
+    }
+
+    .game-stage-fx__flash,
+    .game-stage-fx__ring,
+    .game-stage-fx__sweep,
+    .game-stage-fx__particle,
+    .game-action-feedback__pulse,
+    .game-action-feedback__ring,
+    .game-action-feedback__streaks {
+        display: none;
+    }
+
+    .game-action-feedback__copy {
+        animation-duration: 700ms;
+        animation-delay: 0ms;
+    }
+}

@@ -10,6 +10,8 @@ use App\Models\GameRoom;
 use App\Models\GameWord;
 use App\Models\User;
 use App\Support\GameRoomSnapshot;
+use App\Support\GamePresentationTiming;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -95,7 +97,11 @@ class GameRoomEngine
             $this->advanceExpiredState($lockedRoom);
             $participant = $this->participant($lockedRoom, $user);
 
-            if ($lockedRoom->status !== 'playing' || $lockedRoom->phase === 'done') {
+            if (
+                $lockedRoom->status !== 'playing'
+                || $lockedRoom->phase === 'done'
+                || $lockedRoom->presentation !== 'playing'
+            ) {
                 throw ValidationException::withMessages(['game' => 'Le buzz est fermé.']);
             }
 
@@ -194,7 +200,9 @@ class GameRoomEngine
             }
 
             if ($lockedRoom->phase === 'conjugation') {
-                if ($normalized === $this->normalize($word->third_person_singular)) {
+                $isCorrect = $normalized === $this->normalize($word->third_person_singular);
+
+                if ($isCorrect) {
                     $participant->increment('score');
                     $this->history($lockedRoom, 'bonus', 'bonne conjugaison', $participant, 1);
                     $lockedRoom->message = 'Maîtrise parfaite · +3 sur ce mot';
@@ -203,7 +211,11 @@ class GameRoomEngine
                     $lockedRoom->message = 'Réponse : '.$word->third_person_singular;
                 }
 
-                $this->reveal($lockedRoom);
+                $this->reveal(
+                    $lockedRoom,
+                    $isCorrect ? 'feedback_correct' : 'feedback_wrong',
+                    GamePresentationTiming::FEEDBACK_SECONDS,
+                );
             }
         });
 
@@ -269,11 +281,14 @@ class GameRoomEngine
             $room->fill([
                 'status' => 'playing',
                 'phase' => 'translation',
+                'presentation' => 'next_word',
+                'presentation_started_at' => now(),
+                'presentation_ends_at' => now()->addSeconds(GamePresentationTiming::WORD_INTRO_SECONDS),
                 'started_at' => now(),
                 'current_word_id' => $word->id,
                 'word_index' => 0,
-                'round_ends_at' => now()->addSeconds(60),
-                'message' => 'Tout le monde peut buzzer',
+                'round_ends_at' => null,
+                'message' => 'Nouveau mot',
                 'history' => [$this->event('system', "Nouveau mot : {$word->german}")],
                 'submitted_answer' => null,
                 'starts_at' => null,
@@ -287,8 +302,20 @@ class GameRoomEngine
             return;
         }
 
-        if ($room->phase === 'done' && $room->next_word_at?->isPast()) {
-            $this->nextWord($room);
+        if ($room->presentation !== 'playing') {
+            if (! $room->presentation_ends_at?->isPast()) {
+                return;
+            }
+
+            $scheduledAt = $room->presentation_ends_at;
+
+            if (in_array($room->presentation, ['feedback_correct', 'feedback_wrong'], true)) {
+                $this->reveal($room, 'result', GamePresentationTiming::RESULT_SECONDS, $scheduledAt);
+            } elseif ($room->presentation === 'next_word') {
+                $this->openWord($room, $scheduledAt);
+            } else {
+                $this->nextWord($room, $scheduledAt);
+            }
 
             return;
         }
@@ -299,7 +326,7 @@ class GameRoomEngine
             if ($room->phase === 'conjugation') {
                 $room->message = 'Temps écoulé';
                 $this->history($room, 'wrong', 'temps écoulé', $participant);
-                $this->reveal($room);
+                $this->reveal($room, 'time_up');
 
                 return;
             }
@@ -311,7 +338,7 @@ class GameRoomEngine
 
         if (! $room->active_participant_id && $room->round_ends_at?->isPast()) {
             $room->message = 'Temps général écoulé';
-            $this->reveal($room);
+            $this->reveal($room, 'time_up');
         }
     }
 
@@ -327,21 +354,42 @@ class GameRoomEngine
         ]);
 
         if ($room->activeParticipants()->where('buzz_used', false)->doesntExist()) {
-            $this->reveal($room);
+            if ($reason === 'Temps écoulé') {
+                $this->reveal($room, 'time_up');
+
+                return;
+            }
+
+            $this->reveal(
+                $room,
+                'feedback_wrong',
+                GamePresentationTiming::FEEDBACK_SECONDS,
+            );
         }
     }
 
-    private function reveal(GameRoom $room): void
+    private function reveal(
+        GameRoom $room,
+        string $presentation = 'result',
+        int $duration = GamePresentationTiming::RESULT_SECONDS,
+        ?\DateTimeInterface $scheduledAt = null,
+    ): void
     {
         $word = $room->currentWord()->firstOrFail();
+        $startsAt = $scheduledAt
+            ? CarbonImmutable::instance($scheduledAt)
+            : now()->toImmutable();
         $room->fill([
             'phase' => 'done',
+            'presentation' => $presentation,
+            'presentation_started_at' => $startsAt,
+            'presentation_ends_at' => $startsAt->addSeconds($duration),
             'active_participant_id' => null,
             'answer_ends_at' => null,
             'round_ends_at' => null,
             'answer_preview' => '',
             'grammar_selection' => null,
-            'next_word_at' => now()->addSeconds(3),
+            'next_word_at' => null,
             'correction' => [
                 'translation' => $word->translations[0],
                 'strength' => $word->strength,
@@ -350,7 +398,7 @@ class GameRoomEngine
         ]);
     }
 
-    private function nextWord(GameRoom $room): void
+    private function nextWord(GameRoom $room, ?\DateTimeInterface $scheduledAt = null): void
     {
         $nextIndex = $room->word_index + 1;
         $word = GameWord::query()->orderBy('id')->skip($nextIndex)->first();
@@ -361,25 +409,49 @@ class GameRoomEngine
                 'finished_at' => now(),
                 'message' => 'Partie terminée',
                 'next_word_at' => null,
+                'presentation' => 'playing',
+                'presentation_started_at' => null,
+                'presentation_ends_at' => null,
             ]);
 
             return;
         }
 
+        $startsAt = $scheduledAt
+            ? CarbonImmutable::instance($scheduledAt)
+            : now()->toImmutable();
+
         $room->fill([
             'phase' => 'translation',
+            'presentation' => 'next_word',
+            'presentation_started_at' => $startsAt,
+            'presentation_ends_at' => $startsAt->addSeconds(GamePresentationTiming::WORD_INTRO_SECONDS),
             'current_word_id' => $word->id,
             'word_index' => $nextIndex,
             'active_participant_id' => null,
-            'round_ends_at' => now()->addSeconds(60),
+            'round_ends_at' => null,
             'answer_ends_at' => null,
             'submitted_answer' => null,
             'next_word_at' => null,
-            'message' => 'Tout le monde peut buzzer',
+            'message' => 'Nouveau mot',
             'history' => [$this->event('system', "Nouveau mot : {$word->german}")],
             'correction' => null,
         ]);
         $room->participants()->update(['buzz_used' => false]);
+    }
+
+    private function openWord(GameRoom $room, ?\DateTimeInterface $scheduledAt = null): void
+    {
+        $startsAt = $scheduledAt
+            ? CarbonImmutable::instance($scheduledAt)
+            : now()->toImmutable();
+        $room->fill([
+            'presentation' => 'playing',
+            'presentation_started_at' => $startsAt,
+            'presentation_ends_at' => null,
+            'round_ends_at' => $startsAt->addSeconds(60),
+            'message' => 'Tout le monde peut buzzer',
+        ]);
     }
 
     private function participant(GameRoom $room, User $user): GameParticipant
@@ -398,6 +470,7 @@ class GameRoomEngine
     {
         return array_filter([
             'id' => (string) Str::ulid(),
+            'occurred_at' => now()->toISOString(),
             'type' => $type,
             'text' => $text,
             'player' => $participant?->user?->name,
@@ -420,7 +493,7 @@ class GameRoomEngine
     {
         $deadline = match (true) {
             $room->status === 'countdown' => $room->starts_at,
-            $room->status === 'playing' && $room->phase === 'done' => $room->next_word_at,
+            $room->status === 'playing' && $room->presentation !== 'playing' => $room->presentation_ends_at,
             $room->status === 'playing' && $room->active_participant_id !== null => $room->answer_ends_at,
             $room->status === 'playing' => $room->round_ends_at,
             default => null,

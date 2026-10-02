@@ -12,6 +12,7 @@ export type HistoryEventType =
 
 export type HistoryEvent = {
     id: string;
+    occurred_at?: string;
     player?: string;
     color?: string;
     type: HistoryEventType;
@@ -24,7 +25,7 @@ type ActivePlayer = {
     color: string;
 } | null;
 
-type WordCardProps = {
+export type WordCardProps = {
     stage: GameStage;
     activePlayer: ActivePlayer;
     activeId: number | null;

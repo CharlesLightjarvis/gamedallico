@@ -3,11 +3,11 @@ const csrfToken = () =>
         .querySelector<HTMLMetaElement>('meta[name="csrf-token"]')
         ?.getAttribute('content') ?? '';
 
-export async function gameRequest(
+export async function gameRequest<T = void>(
     url: string,
-    method: 'POST' | 'PATCH' = 'POST',
+    method: 'GET' | 'POST' | 'PATCH' = 'POST',
     body?: Record<string, unknown>,
-): Promise<void> {
+): Promise<T> {
     const response = await fetch(url, {
         method,
         credentials: 'same-origin',
@@ -17,7 +17,7 @@ export async function gameRequest(
             'X-CSRF-TOKEN': csrfToken(),
             'X-Requested-With': 'XMLHttpRequest',
         },
-        body: body ? JSON.stringify(body) : undefined,
+        body: method !== 'GET' && body ? JSON.stringify(body) : undefined,
     });
 
     if (!response.ok) {
@@ -27,4 +27,10 @@ export async function gameRequest(
 
         throw new Error(payload?.message ?? 'Action refusée par le serveur.');
     }
+
+    if (response.status === 204) {
+        return undefined as T;
+    }
+
+    return (await response.json()) as T;
 }

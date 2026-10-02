@@ -22,11 +22,15 @@ class GameRoomSnapshot
                 'capacity' => $room->capacity,
                 'status' => $room->status,
                 'phase' => $room->phase,
+                'presentation' => $room->presentation,
+                'presentation_timeline' => self::presentationTimeline($room),
                 'version' => $room->version,
                 'starts_at' => self::date($room->starts_at),
                 'started_at' => self::date($room->started_at),
                 'round_ends_at' => self::date($room->round_ends_at),
                 'answer_ends_at' => self::date($room->answer_ends_at),
+                'presentation_started_at' => self::date($room->presentation_started_at),
+                'presentation_ends_at' => self::date($room->presentation_ends_at),
                 'next_word_at' => self::date($room->next_word_at),
                 'word_index' => $room->word_index,
                 'word_count' => $room->word_count,
@@ -54,7 +58,7 @@ class GameRoomSnapshot
                 'history' => $room->history ?? [],
                 'correction' => $room->phase === 'done' ? $room->correction : null,
             ],
-            'server_time' => now()->toIso8601String(),
+            'server_time' => now()->toISOString(),
         ];
     }
 
@@ -81,5 +85,60 @@ class GameRoomSnapshot
     private static function date(Carbon|\DateTimeInterface|null $date): ?string
     {
         return $date?->format(DATE_ATOM);
+    }
+
+    private static function presentationTimeline(GameRoom $room): array
+    {
+        $startsAt = $room->presentation_started_at
+            ?? $room->started_at
+            ?? $room->starts_at
+            ?? now();
+        $endsAt = $room->presentation_ends_at;
+        $timeline = [[
+            'presentation' => $room->presentation,
+            'starts_at' => self::date($startsAt),
+            'ends_at' => self::date($endsAt),
+        ]];
+
+        if (! $endsAt) {
+            return $timeline;
+        }
+
+        $hasNextWord = $room->word_index + 1 < $room->word_count;
+
+        if (in_array($room->presentation, ['feedback_correct', 'feedback_wrong'], true)) {
+            $resultEndsAt = $endsAt->addSeconds(GamePresentationTiming::RESULT_SECONDS);
+            $timeline[] = [
+                'presentation' => 'result',
+                'starts_at' => self::date($endsAt),
+                'ends_at' => self::date($resultEndsAt),
+            ];
+
+            if ($hasNextWord) {
+                $timeline[] = [
+                    'presentation' => 'next_word',
+                    'starts_at' => self::date($resultEndsAt),
+                    'ends_at' => self::date($resultEndsAt->addSeconds(GamePresentationTiming::WORD_INTRO_SECONDS)),
+                ];
+            }
+
+            return $timeline;
+        }
+
+        if (in_array($room->presentation, ['result', 'time_up'], true) && $hasNextWord) {
+            $timeline[] = [
+                'presentation' => 'next_word',
+                'starts_at' => self::date($endsAt),
+                'ends_at' => self::date($endsAt->addSeconds(GamePresentationTiming::WORD_INTRO_SECONDS)),
+            ];
+        } elseif ($room->presentation === 'next_word') {
+            $timeline[] = [
+                'presentation' => 'playing',
+                'starts_at' => self::date($endsAt),
+                'ends_at' => null,
+            ];
+        }
+
+        return $timeline;
     }
 }

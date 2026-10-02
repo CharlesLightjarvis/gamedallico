@@ -16,10 +16,11 @@ class GameRoom extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'code', 'host_id', 'capacity', 'status', 'phase', 'current_word_id',
+        'code', 'host_id', 'capacity', 'status', 'phase', 'presentation', 'current_word_id',
         'word_index', 'word_count', 'active_participant_id', 'message',
         'answer_preview', 'submitted_answer', 'grammar_selection', 'history', 'correction',
         'starts_at', 'started_at', 'round_ends_at', 'answer_ends_at',
+        'presentation_started_at', 'presentation_ends_at',
         'next_word_at', 'finished_at', 'version',
     ];
 
@@ -32,6 +33,8 @@ class GameRoom extends Model
             'started_at' => 'immutable_datetime',
             'round_ends_at' => 'immutable_datetime',
             'answer_ends_at' => 'immutable_datetime',
+            'presentation_started_at' => 'immutable_datetime',
+            'presentation_ends_at' => 'immutable_datetime',
             'next_word_at' => 'immutable_datetime',
             'finished_at' => 'immutable_datetime',
         ];

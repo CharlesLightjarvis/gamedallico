@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class GameActionController extends Controller
 {
+    public function clock(GameRoom $gameRoom): JsonResponse
+    {
+        return response()->json(['server_time' => now()->toISOString()]);
+    }
+
     public function buzz(Request $request, GameRoom $gameRoom, GameRoomEngine $engine): JsonResponse
     {
         $engine->buzz($gameRoom, $request->user());
